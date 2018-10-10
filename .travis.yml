@@ -21,4 +21,4 @@ before_script:
 script:
 - php vendor/bin/phpcs --config-set php_path php
 #- phpunit tests/AllTests.php
-- phpcs --standard=$(if [ -e phpcs.xml ]; then echo phpcs.xml; else echo FuckMe; fi) $(find . -name '**/*.php')
+- phpcs --standard=$(if [ -e phpcs.xml ]; then echo phpcs.xml; else echo FuckMe; fi) $(find . -name '*.php')
