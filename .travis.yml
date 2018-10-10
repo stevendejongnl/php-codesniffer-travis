@@ -24,7 +24,7 @@ script:
 - npm build
 - php vendor/bin/phpcs --config-set php_path php
 #- phpunit tests/AllTests.php
-- php vendor/bin/phpcs --standard=./phpcs.xml $(find ./system -path ./vendor -prune -o -name '*.php')
+- php vendor/bin/phpcs -vv --standard=./phpcs.xml $(find ./system -path ./vendor -prune -o -name '*.php')
 
 cache:
   directories:
