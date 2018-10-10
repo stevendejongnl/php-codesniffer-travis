@@ -3,55 +3,49 @@
 <ruleset name="PhpCodeSnifferTravis">
     <description>PHP CodeSniffer Travis.</description>
 
-    <!-- Exclude Composer vendor directory. -->
-    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/Standards/*/Tests/*\.(inc|css|js)</exclude-pattern>
+    <exclude-pattern>*/vendor/**/*\.php</exclude-pattern>
 
-    <arg value="ps" />
-    <arg name="report" value="summary" />
-    <arg name="report-full" value="./logs/phpcs-full.txt" />
-    <arg name="report-checkstyle" value="./xsl-template/phpcs-checkstyle.xml" />
-    <arg name="extensions" value="php,inc,js,css,lib/php" />
-    <ini name="memory_limit" value="128M" />
+    <arg name="basepath" value="."/>
+    <arg name="colors" />
+    <arg name="parallel" value="75" />
+    <arg value="np"/>
 
-    <rule ref="PSR1" />
-    <rule ref="PSR2">
-        <exclude name="Generic.Files.LineEndings" />
-    </rule>
-
-    <config name="testVersion" value="5.3-99.0"/>
-    <rule ref="PHPCompatibility">
-        <!-- Verified correct usage. -->
-        <exclude name="PHPCompatibility.PHP.DeprecatedIniDirectives.safe_modeRemoved">
-    </rule>
-
-    <!-- Verified correct usage. -->
-    <rule ref="PHPCompatibility.PHP.DeprecatedIniDirectives.magic_quotes_runtimeRemoved">
-        <!--<exclude-pattern>*/MyFile.php</exclude-pattern>-->
-    </rule>
-
-    <rule ref="Generic.Metrics.NestingLevelSniff" />
-
-    <rule ref="PEAR.Commenting" />
-
-    <rule ref="Generic.Commenting.Todo.CommentFound">
-        <message>Please review this TODO comment: %s</message>
-        <severity phpcs-only="true">8</severity>
-        <severity phpcbf-only="true">0</severity>
+    <!-- Don't hide tokenizer exceptions -->
+    <rule ref="Internal.Tokenizer.Exception">
         <type>error</type>
     </rule>
 
+    <rule ref="PEAR.Commenting.ClassComment"/>
+    <rule ref="PEAR.Commenting.FunctionComment"/>
+
+    <rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
+
+    <rule ref="Squiz.PHP.CommentedOutCode"/>
+    <rule ref="Squiz.PHP.Eval"/>
+    <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnNewLine"/>
+    <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.ContentAfterBrace"/>
+    <rule ref="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
+
+    <rule ref="Generic.Classes.DuplicateClassName"/>
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+    <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
+    <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="Generic.Files.LineEndings"/>
     <rule ref="Generic.Files.LineLength">
         <properties>
-            <property phpcs-only="true" name="lineLimit" value="90"/>
-            <property phpcbf-only="true" name="lineLimit" value="120"/>
-            <property name="absoluteLineLimit" value="100"/>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="0"/>
         </properties>
     </rule>
-
-    <rule ref="Generic.PHP.ForbiddenFunctions">
-        <properties>
-            <property name="forbiddenFunctions" type="array" value="delete=>unset,print=>echo,create_function=>null" />
-        </properties>
-    </rule>
+    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+    <rule ref="Generic.Formatting.MultipleStatementAlignment"/>
+    <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.PHP.LowerCaseConstant"/>
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 
 </ruleset>

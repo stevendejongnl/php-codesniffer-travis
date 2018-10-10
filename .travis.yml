@@ -18,14 +18,11 @@ before_install:
 
 
 before_script:
-- if [[ "$SNIFF" == "1" ]]; then
-  phpcs --config-set installed_paths $TRAVIS_BUILD_DIR/.phpcs.xml;
-  fi
+- php $TRAVIS_BUILD_DIR/vendor/bin/phpcs --config-set installed_paths $TRAVIS_BUILD_DIR/.phpcs.xml;
 - if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then phpenv config-add php7-testingConfig.ini; fi
 
 script:
 - npm build
-- php $TRAVIS_BUILD_DIR/vendor/bin/phpcs --config-set php_path php
 #- phpunit tests/AllTests.php
 - php $TRAVIS_BUILD_DIR/vendor/bin/phpcs -v $(find $TRAVIS_BUILD_DIR/system -name '*.php')
 
