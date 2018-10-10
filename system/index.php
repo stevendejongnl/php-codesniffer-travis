@@ -6,3 +6,7 @@ class NewClass {
         var_dump('testing';)
     }
 }
+
+?>
+
+<?= 'hello'; ?>

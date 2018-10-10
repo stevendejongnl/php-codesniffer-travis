@@ -24,7 +24,7 @@ before_script:
 script:
 - npm build
 #- phpunit tests/AllTests.php
-- php $TRAVIS_BUILD_DIR/vendor/bin/phpcs -v $(find $TRAVIS_BUILD_DIR/system -name '*.php')
+- php $TRAVIS_BUILD_DIR/vendor/bin/phpcs -i -v $(find $TRAVIS_BUILD_DIR/system -name '*.php')
 
 cache:
   directories:
