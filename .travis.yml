@@ -19,7 +19,7 @@ before_install:
 
 before_script:
 - if [[ "$SNIFF" == "1" ]]; then
-  phpcs --config-set installed_paths $TRAVIS_BUILD_DIR/phpcs.xml;
+  phpcs --config-set installed_paths $TRAVIS_BUILD_DIR/.phpcs.xml;
   fi
 - if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then phpenv config-add php7-testingConfig.ini; fi
 
