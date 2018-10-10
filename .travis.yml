@@ -15,14 +15,16 @@ before_install:
 
 
 before_script:
-- if [[ $CUSTOM_INI == "1" && ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then phpenv config-add php5-testingConfig.ini; fi
-- if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7" || $TRAVIS_PHP_VERSION == "nightly" ]]; then phpenv config-add php7-testingConfig.ini; fi
+- if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then phpenv config-add php7-testingConfig.ini; fi
 
 script:
 - php vendor/bin/phpcs --config-set php_path php
 #- phpunit tests/AllTests.php
-- php vendor/bin/phpcs --standard=$(if [ -e phpcs.xml ]; then echo phpcs.xml; else echo FuckMe; fi) $(find ./system -path ./vendor -prune -o -name '*.php')
+- php vendor/bin/phpcs --standard=$(if [ -e phpcs.xml ]; then echo phpcs.xml; else echo Error; fi) $(find ./system -path ./vendor -prune -o -name '*.php')
 
 cache:
   directories:
   - "vendor"
+
+after_success:
+- sh ./shell/PR-comment.sh
