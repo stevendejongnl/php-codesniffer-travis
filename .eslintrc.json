@@ -1,0 +1,43 @@
+{
+  "plugins": [
+    "react"
+  ],
+  "extends": [
+    "standard",
+    "plugin:react/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "16.5.2"
+    }
+  },
+  "rules": {
+    "no-tabs": "off",
+    "semi": [
+      2,
+      "always"
+    ],
+    "indent": [
+      "error",
+      "tab",
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "react/jsx-tag-spacing": 2,
+    "react/jsx-wrap-multilines": 2,
+    "react/jsx-closing-bracket-location": [
+      1,
+      "line-aligned"
+    ],
+    "react/jsx-one-expression-per-line": [
+      2,
+      {
+        "allow": "literal"
+      }
+    ]
+  },
+  "globals": {
+    "fetch": true
+  }
+}
