@@ -1,0 +1,26 @@
+sudo: false
+language: php
+dist: trusty
+
+matrix:
+  fast_finish: true
+  include:
+  - php: 7.1
+  - php: 7.2
+
+before_install:
+# Speed up build time by disabling Xdebug when its not needed.
+- phpenv config-rm xdebug.ini || echo 'No xdebug config.'
+
+before_script:
+- if [[ $CUSTOM_INI == "1" && ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then phpenv config-add php5-testingConfig.ini; fi
+- if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7" || $TRAVIS_PHP_VERSION == "nightly" ]]; then phpenv config-add php7-testingConfig.ini; fi
+
+script:
+- php bin/phpcs --config-set php_path php
+#- phpunit tests/AllTests.php
+- if [[ $CUSTOM_INI != "1" ]]; then php bin/phpcs --no-cache --parallel=1; fi
+- if [[ $CUSTOM_INI != "1" && $TRAVIS_PHP_VERSION != "nightly" ]]; then pear package-validate package.xml; fi
+- if [[ $CUSTOM_INI != "1" ]]; then composer validate --no-check-all --strict; fi
+- if [[ $CUSTOM_INI != "1" ]]; then php scripts/build-phar.php; fi
+- if [[ $CUSTOM_INI != "1" ]]; then php phpcs.phar; fi
