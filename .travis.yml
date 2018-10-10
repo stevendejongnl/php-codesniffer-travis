@@ -21,7 +21,7 @@ before_script:
 script:
 - php vendor/bin/phpcs --config-set php_path php
 #- phpunit tests/AllTests.php
-- php vendor/bin/phpcs --standard=$(if [ -e phpcs.xml ]; then echo phpcs.xml; else echo FuckMe; fi) $(find . -name '*.php')
+- php vendor/bin/phpcs --standard=$(if [ -e phpcs.xml ]; then echo phpcs.xml; else echo FuckMe; fi) $(find ./system -path ./vendor -prune -o -name '*.php')
 
 cache:
   directories:
