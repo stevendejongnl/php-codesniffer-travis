@@ -1,7 +1,8 @@
 <?
 
-echo 'some test data';
-
-And this is going to fail
-
-Here some changes
+class NewClass {
+    function newFunction
+    {
+        var_dump('testing';)
+    }
+}
