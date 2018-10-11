@@ -1,6 +1,6 @@
 {
-
-    "require": {
-        "squizlabs/php_codesniffer": "*"
-    }
+  "require": {
+    "php": ">=7.1.22 <=7.2.10",
+    "squizlabs/php_codesniffer": "*"
+  }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<ruleset name="PhpCodeSnifferTravis">
+    <description>PHP CodeSniffer Travis.</description>
+
+    <exclude-pattern>*/Standards/*/Tests/*\.(inc|css|js)</exclude-pattern>
+    <exclude-pattern>*/vendor/**/*\.php</exclude-pattern>
+
+    <arg name="basepath" value="."/>
+    <arg name="colors" />
+    <arg name="parallel" value="75" />
+    <arg value="np"/>
+
+    <!-- Don't hide tokenizer exceptions -->
+    <rule ref="Internal.Tokenizer.Exception">
+        <type>error</type>
+    </rule>
+
+    <rule ref="PEAR.Commenting.ClassComment"/>
+    <rule ref="PEAR.Commenting.FunctionComment"/>
+
+    <rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
+
+    <rule ref="Squiz.PHP.CommentedOutCode"/>
+    <rule ref="Squiz.PHP.Eval"/>
+    <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnNewLine"/>
+    <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.ContentAfterBrace"/>
+    <rule ref="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
+
+    <rule ref="Generic.Classes.DuplicateClassName"/>
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+    <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
+    <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="Generic.Files.LineEndings"/>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+    </rule>
+    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+    <rule ref="Generic.Formatting.MultipleStatementAlignment"/>
+    <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.PHP.LowerCaseConstant"/>
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+
+</ruleset>

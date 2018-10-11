@@ -1,5 +1,18 @@
 <?
 
-echo 'some test data';
+class NewClass
+{
 
-And this is going to fail
+
+    function newFunction
+    {
+        var_dump('testing';)
+
+
+    }
+}//end class
+
+
+?>
+
+<?= 'hello';

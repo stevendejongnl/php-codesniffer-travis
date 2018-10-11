@@ -2,29 +2,42 @@ sudo: false
 language: php
 dist: trusty
 
+node_js:
+- "stable"
+
 matrix:
   fast_finish: true
   include:
-  - php: 7.1
   - php: 7.2
+    env: SNIFF=1
 
 before_install:
-- composer require "squizlabs/php_codesniffer=*"
+- npm i
 # Speed up build time by disabling Xdebug when its not needed.
 - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
+- if [[ "$SNIFF" == "1" ]]; then export PHPCS_DIR=/tmp/phpcs; fi
+- if [[ "$SNIFF" == "1" ]]; then export SNIFFS_DIR=/tmp/sniffs; fi
+# Install PHP_CodeSniffer.
+- if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
+# Set install path for Coding Standards.
+- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths $TRAVIS_BUILD_DIR/CodeStandard; fi
+# After CodeSniffer install you should refresh your path.
+- if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
 
 
 before_script:
-- if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then phpenv config-add php7-testingConfig.ini; fi
+- if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7.2" ]]; then phpenv config-add php7.2-testingConfig.ini; fi
 
 script:
-- php vendor/bin/phpcs --config-set php_path php
+- npm build
 #- phpunit tests/AllTests.php
-- php vendor/bin/phpcs --standard=$(if [ -e phpcs.xml ]; then echo phpcs.xml; else echo Error; fi) $(find ./system -path ./vendor -prune -o -name '*.php')
+- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs -p ./system --standard=CodeStandard --extensions=php; fi
 
 cache:
   directories:
+  - $HOME/.composer/cache/files
   - "vendor"
+  - "node_modules"
 
 after_success:
-- sh ./shell/PR-comment.sh
+- sh $TRAVIS_BUILD_DIR/shell/PR-comment.sh
