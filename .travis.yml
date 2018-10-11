@@ -1,5 +1,7 @@
 sudo: false
 language: php
+php:
+  - 7.2
 dist: trusty
 
 node_js:
@@ -18,13 +20,12 @@ before_install:
 
 
 before_script:
-- php $TRAVIS_BUILD_DIR/vendor/bin/phpcs --config-set $TRAVIS_BUILD_DIR/.phpcs.xml;
-- if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then phpenv config-add php7-testingConfig.ini; fi
+- if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7.2" ]]; then phpenv config-add php7.2-testingConfig.ini; fi
 
 script:
 - npm build
 #- phpunit tests/AllTests.php
-- php $TRAVIS_BUILD_DIR/vendor/bin/phpcs -i -v $(find $TRAVIS_BUILD_DIR/system -name '*.php')
+- php $TRAVIS_BUILD_DIR/vendor/bin/phpcs -vv $(find $TRAVIS_BUILD_DIR/system -name '*.php')
 
 cache:
   directories:
