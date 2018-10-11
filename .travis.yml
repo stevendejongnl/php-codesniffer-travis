@@ -26,12 +26,13 @@ before_install:
 
 
 before_script:
+- $PHPCS_DIR/bin/phpcs -i
 - if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7.2" ]]; then phpenv config-add php7.2-testingConfig.ini; fi
 
 script:
 - npm build
 #- phpunit tests/AllTests.php
-- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs $(find $TRAVIS_BUILD_DIR/system -name '*.php') -p -vv --standard=$TRAVIS_BUILD_DIR/.phpcs.xml --extensions=php; fi
+- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs $(find $TRAVIS_BUILD_DIR/system -name '*.php') -p -vv --standard=CompetaRuleset --extensions=php; fi
 
 cache:
   directories:

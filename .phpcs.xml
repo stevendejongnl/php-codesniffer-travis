@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="PHP_CodeSniffer">
+<ruleset name="CompetaRuleset">
     <description>The coding standard for PHP_CodeSniffer itself.</description>
 
     <file>system</file>
