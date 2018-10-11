@@ -20,7 +20,7 @@ before_install:
 # Install PHP_CodeSniffer.
 - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
 # Set install path for Coding Standards.
-- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths $TRAVIS_BUILD_DIR/.phpcs.xml; fi
+- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths $TRAVIS_BUILD_DIR/CodeStandard; fi
 # After CodeSniffer install you should refresh your path.
 - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
 
