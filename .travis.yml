@@ -18,7 +18,7 @@ before_install:
 
 
 before_script:
-- php $TRAVIS_BUILD_DIR/vendor/bin/phpcs --config-set installed_paths $TRAVIS_BUILD_DIR/.phpcs.xml;
+- php $TRAVIS_BUILD_DIR/vendor/bin/phpcs --config-set $TRAVIS_BUILD_DIR/.phpcs.xml;
 - if [[ $CUSTOM_INI == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then phpenv config-add php7-testingConfig.ini; fi
 
 script:
