@@ -1,7 +1,5 @@
 sudo: false
 language: php
-php:
-  - 7.2
 dist: trusty
 
 node_js:
@@ -11,12 +9,20 @@ matrix:
   fast_finish: true
   include:
   - php: 7.2
+    env: SNIFF=1
 
 before_install:
 - npm i
-- composer require "squizlabs/php_codesniffer=*"
 # Speed up build time by disabling Xdebug when its not needed.
 - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
+- if [[ "$SNIFF" == "1" ]]; then export PHPCS_DIR=/tmp/phpcs; fi
+- if [[ "$SNIFF" == "1" ]]; then export SNIFFS_DIR=/tmp/sniffs; fi
+# Install PHP_CodeSniffer.
+- if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
+# Set install path for Coding Standards.
+- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths $TRAVIS_BUILD_DIR/.phpcs.xml; fi
+# After CodeSniffer install you should refresh your path.
+- if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
 
 
 before_script:
@@ -25,7 +31,7 @@ before_script:
 script:
 - npm build
 #- phpunit tests/AllTests.php
-- php $TRAVIS_BUILD_DIR/vendor/bin/phpcs $(find $TRAVIS_BUILD_DIR/system -name '*.php') -p -s -v -n --standard=$TRAVIS_BUILD_DIR/.phpcs.xml --extensions=php
+- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs $(find $TRAVIS_BUILD_DIR/system -name '*.php') -p . --standard=phpcs.xml; fi
 
 cache:
   directories:
