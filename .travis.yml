@@ -32,7 +32,7 @@ before_script:
 script:
 - npm build
 #- phpunit tests/AllTests.php
-- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs $(find $TRAVIS_BUILD_DIR/system -name '*.php') -p -vv --standard=CompetaRuleset --extensions=php; fi
+- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs $(find $TRAVIS_BUILD_DIR/system -name '*.php') -p -vv --standard=CodeStandard --extensions=php; fi
 
 cache:
   directories:
